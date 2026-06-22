@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraHealth Portal - Premium Medical Suite</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-background">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i data-lucide="activity" class="pulse-icon"></i>
+                </div>
+                <div>
+                    <h1>AuraHealth</h1>
+                    <p class="subtitle">Smart Reception Portal</p>
+                </div>
+            </div>
+            <div class="header-status" style="display: flex; align-items: center; gap: 16px;">
+                <span class="status-dot"></span>
+                <span id="header-time">00:00:00 PM</span>
+                <button id="btn-staff-portal" class="btn btn-outline" style="padding: 6px 14px; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); color: var(--text-primary); cursor: pointer; transition: all 0.2s;"><i data-lucide="shield-check" style="width: 14px; height: 14px;"></i> Staff Portal</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+            
+            <!-- SCREEN 1: Home Screen -->
+            <section id="home-screen" class="screen active">
+                <div class="welcome-header">
+                    <h2>Welcome to AuraHealth Core</h2>
+                    <p>Please select an option below to start your check-in process.</p>
+                </div>
+                <div class="options-grid">
+                    <div class="option-card" id="btn-new-patient">
+                        <div class="option-icon-wrapper new-patient-color">
+                            <i data-lucide="user-plus"></i>
+                        </div>
+                        <h3>New Patient</h3>
+                        <p>First time visiting our hospital? Create your profile and take your photo here.</p>
+                        <button class="btn btn-primary">Start Registration <i data-lucide="arrow-right"></i></button>
+                    </div>
+
+                    <div class="option-card" id="btn-existing-patient">
+                        <div class="option-icon-wrapper existing-patient-color">
+                            <i data-lucide="user-check"></i>
+                        </div>
+                        <h3>Existing Patient</h3>
+                        <p>Already registered with us? Check-in, view details, or search your profile.</p>
+                        <button class="btn btn-secondary">Search Profile <i data-lucide="arrow-right"></i></button>
+                    </div>
+
+                    <div class="option-card" id="btn-book-appointment">
+                        <div class="option-icon-wrapper appointment-color" style="background: rgba(139, 92, 246, 0.1); color: rgb(139, 92, 246); box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.2);">
+                            <i data-lucide="calendar"></i>
+                        </div>
+                        <h3>Book Appointment</h3>
+                        <p>Schedule your visit from home and get a confirmed consulting time slot.</p>
+                        <button class="btn btn-primary" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border-color: #8b5cf6;">Book Slot <i data-lucide="arrow-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 2: Registration Form Screen -->
+            <section id="registration-screen" class="screen">
+                <div class="screen-header">
+                    <button class="btn-back btn-icon-only"><i data-lucide="chevron-left"></i></button>
+                    <div>
+                        <h2>New Patient Registration</h2>
+                        <p>Please enter your details and capture a picture for verification.</p>
+                    </div>
+                </div>
+
+                <form id="registration-form" class="registration-layout">
+                    <div class="form-panel glass-panel">
+                        <h3><i data-lucide="file-text"></i> Personal Details</h3>
+                        
+                        <div class="input-group">
+                            <label for="patient-name">Full Name</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="user"></i>
+                                <input type="text" id="patient-name" required placeholder="Enter full name" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="patient-age">Age</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="calendar"></i>
+                                    <input type="number" id="patient-age" required min="0" max="120" placeholder="Years">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="patient-gender">Gender</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="users"></i>
+                                    <select id="patient-gender" required>
+                                        <option value="" disabled selected>Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="patient-contact">Contact Number</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="phone"></i>
+                                <input type="tel" id="patient-contact" required placeholder="Enter phone number" pattern="[0-9]{10,15}" title="Please enter a valid phone number" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <!-- Medical Details Section -->
+                        <h3 style="margin-top: 32px; border-top: 1px dashed var(--border-color); padding-top: 24px;"><i data-lucide="heart-pulse"></i> Medical Complaint</h3>
+                        
+                        <div class="input-group">
+                            <label for="patient-symptom-cat">Main Complaint Category</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="stethoscope"></i>
+                                <select id="patient-symptom-cat" required>
+                                    <option value="" disabled selected>Select complaint category</option>
+                                    <option value="eye">Eye Problems</option>
+                                    <option value="heart">Heart / Chest Problems</option>
+                                    <option value="general">Fever / Cold / Flu</option>
+                                    <option value="ortho">Bone / Joint / Muscle Pain</option>
+                                    <option value="ent">Ear / Nose / Throat (ENT)</option>
+                                    <option value="other">Other Consultation</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="patient-symptom-details">Specific Symptoms / Medical Issues</label>
+                            <div class="input-wrapper">
+                                <textarea id="patient-symptom-details" placeholder="Describe symptoms or reason for visit (e.g. eye pain, chest heaviness, headache...)" rows="3" style="width: 100%; min-height: 100px; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px; color: var(--text-primary); font-family: inherit; font-size: 0.95rem; outline: none; transition: all var(--transition-fast); resize: vertical;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="camera-panel glass-panel">
+                        <h3><i data-lucide="camera"></i> Face Capture</h3>
+                        
+                        <div class="camera-viewport">
+                            <video id="webcam" autoplay playsinline></video>
+                            <canvas id="photo-canvas" style="display: none;"></canvas>
+                            <img id="photo-preview" src="" alt="Captured Patient Photo" style="display: none;">
+                            
+                            <div class="camera-overlay" id="camera-overlay">
+                                <div class="face-guide"></div>
+                                <div class="overlay-text">Align face within guide</div>
+                            </div>
+                            
+                            <div class="camera-error-message" id="camera-error" style="display: none;">
+                                <i data-lucide="alert-triangle"></i>
+                                <p>Webcam access blocked or unavailable.</p>
+                                <button type="button" class="btn btn-sm btn-outline" id="btn-retry-camera">Retry Permission</button>
+                            </div>
+                        </div>
+
+                        <div class="camera-controls">
+                            <button type="button" class="btn btn-accent btn-full" id="btn-capture">
+                                <i data-lucide="aperture"></i> Capture Photo
+                            </button>
+                            <div class="capture-confirm-buttons" style="display: none;">
+                                <button type="button" class="btn btn-outline" id="btn-retake">
+                                    <i data-lucide="rotate-ccw"></i> Retake
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="btn-submit-registration">
+                                    <i data-lucide="check-circle2"></i> Register Patient
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- SCREEN 3: Success Screen -->
+            <section id="success-screen" class="screen">
+                <div class="success-card glass-panel">
+                    <div class="success-icon-wrapper">
+                        <i data-lucide="check" class="success-icon"></i>
+                    </div>
+                    <h2>Registration Successful!</h2>
+                    <p class="success-message">Patient profile created and recorded in the database.</p>
+
+                    <div class="success-details-container">
+                        <div class="success-photo-container">
+                            <img id="success-patient-photo" src="" alt="Registered Patient Photo">
+                            <span class="photo-badge"><i data-lucide="shield-check"></i> Verified</span>
+                        </div>
+                        <div class="success-info">
+                            <div class="info-item">
+                                <span class="info-label">Patient ID</span>
+                                <span class="info-val highlight" id="success-patient-id">#1001</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Name</span>
+                                <span class="info-val" id="success-patient-name">John Doe</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Age / Gender</span>
+                                <span class="info-val" id="success-patient-age-gender">25 / Male</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Contact</span>
+                                <span class="info-val" id="success-patient-contact">9876543210</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Time</span>
+                                <span class="info-val" id="success-patient-time">10:30 AM</span>
+                            </div>
+                            <div class="info-item" style="border-top: 2px solid rgba(6, 182, 212, 0.2); padding-top: 10px; margin-top: 6px;">
+                                <span class="info-label">Assigned Dept</span>
+                                <span class="info-val" id="success-assigned-dept" style="color: var(--color-accent); font-weight: 600;">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Assigned Doctor</span>
+                                <span class="info-val" id="success-assigned-doctor" style="font-weight: 600;">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Room Number</span>
+                                <span class="info-val" id="success-assigned-room" style="font-weight: 600;">-</span>
+                            </div>
+                            <div class="info-item" style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 8px;">
+                                <span class="info-label">Registration Fee</span>
+                                <span class="info-val" id="success-assigned-fees" style="color: var(--color-success); font-size: 1.1rem; font-weight: 700;">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large btn-center" id="btn-success-done">
+                        <i data-lucide="home"></i> Back to Main Screen
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 4: Existing Patients Directory Screen -->
+            <section id="existing-screen" class="screen">
+                <div class="screen-header">
+                    <button class="btn-back btn-icon-only"><i data-lucide="chevron-left"></i></button>
+                    <div>
+                        <h2>Existing Patient Database</h2>
+                        <p>Search for a patient profile to check-in or view details.</p>
+                    </div>
+                </div>
+
+                <div class="existing-search-container glass-panel">
+                    <div class="search-bar">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="patient-search-input" placeholder="Search by name or contact number..." autocomplete="off">
+                        <div class="search-actions" style="display: flex; gap: 10px;">
+                            <button class="btn btn-primary" id="btn-search-trigger">Search</button>
+                            <button class="btn btn-secondary" id="btn-existing-scan-trigger" type="button">
+                                <i data-lucide="scan-face"></i> Scan Face
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Face Scanner Panel -->
+                <div id="existing-camera-panel" class="glass-panel" style="display: none; margin-bottom: 24px;">
+                    <div class="existing-camera-layout" style="max-width: 500px; margin: 0 auto; text-align: center;">
+                        <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 16px; color: var(--color-accent); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <i data-lucide="scan-face"></i> Face Recognition Scanner
+                        </h3>
+                        <div class="camera-viewport" style="aspect-ratio: 4/3; margin-bottom: 16px;">
+                            <video id="existing-webcam" autoplay playsinline></video>
+                            <canvas id="existing-photo-canvas" style="display: none;"></canvas>
+                            <div class="camera-overlay">
+                                <div class="face-guide"></div>
+                                <div class="scanner-bar"></div>
+                                <div class="overlay-text">Position face inside guide</div>
+                            </div>
+                        </div>
+                        <div class="existing-camera-controls" style="display: flex; gap: 12px; justify-content: center;">
+                            <button type="button" class="btn btn-accent btn-full" id="btn-existing-capture">
+                                <i data-lucide="aperture"></i> Verify & Check-In
+                            </button>
+                            <button type="button" class="btn btn-outline" id="btn-existing-camera-close">
+                                <i data-lucide="x"></i> Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-results-section">
+                    <div class="results-meta">
+                        <span id="results-count">Type in the search bar above to look up patients</span>
+                    </div>
+
+                    <div class="results-grid" id="search-results-grid">
+                        <!-- Search results cards will be injected here dynamically -->
+                        <div class="search-empty-state">
+                            <i data-lucide="users" class="empty-icon"></i>
+                            <p>No patients loaded yet. Try searching for a name or phone number.</p>
+                        </div>
+                    </div>
+
+                    <!-- Private Patient Dashboard (hidden by default) -->
+                    <div id="patient-dashboard" class="patient-dashboard-wrapper" style="display: none; margin-top: 24px;">
+                        <div class="dashboard-grid">
+                            <!-- Left Panel: Profile and Active Check-In Card -->
+                            <div class="dashboard-left-col">
+                                <div class="patient-profile-card glass-panel" style="margin-bottom: 24px;">
+                                    <div class="profile-header-layout">
+                                        <div class="profile-avatar">
+                                            <img id="dash-patient-photo" src="/static/placeholder.jpg" alt="Patient Avatar">
+                                        </div>
+                                        <div class="profile-headline">
+                                            <h3 id="dash-patient-name">Patient Name</h3>
+                                            <span id="dash-patient-id" class="patient-id-badge">#1001</span>
+                                        </div>
+                                    </div>
+                                    <div class="profile-details-list" style="margin-top: 16px;">
+                                        <div class="detail-row">
+                                            <span>Age / Gender:</span>
+                                            <strong id="dash-patient-age-gender">25 / Male</strong>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span>Contact No:</span>
+                                            <strong id="dash-patient-contact">9876543210</strong>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span>Registered On:</span>
+                                            <strong id="dash-patient-registered-at">2026-06-03</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Active/Last Consultation Card -->
+                                <div class="active-consultation-card glass-panel highlight-border" style="margin-bottom: 24px;">
+                                    <h3><i data-lucide="activity" class="pulse-icon"></i> Active Consultation</h3>
+                                    <div class="consultation-body" style="margin-top: 16px;">
+                                        <div class="consult-row">
+                                            <span>Complaint:</span>
+                                            <strong id="dash-consult-complaint">Symptom details here</strong>
+                                        </div>
+                                        <div class="consult-row">
+                                            <span>Assigned Dept:</span>
+                                            <strong id="dash-consult-dept" style="color: var(--color-accent);">Ophthalmology</strong>
+                                        </div>
+                                        <div class="consult-row">
+                                            <span>Assigned Doctor:</span>
+                                            <strong id="dash-consult-doctor">Dr. Verma</strong>
+                                        </div>
+                                        <div class="consult-row">
+                                            <span>Room Location:</span>
+                                            <strong id="dash-consult-room">Room 102</strong>
+                                        </div>
+                                        <div class="consult-row" style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px; margin-top: 12px;">
+                                            <span>Check-In Fee:</span>
+                                            <strong id="dash-consult-fees" style="color: var(--color-success); font-size: 1.15rem;">₹600</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Panel: New Consult Form & Historical Visit Log -->
+                            <div class="dashboard-right-col">
+                                <!-- New Consultation Form -->
+                                <div class="new-consultation-form-card glass-panel" style="margin-bottom: 24px;">
+                                    <h3><i data-lucide="plus-circle" style="color: var(--color-success);"></i> New Check-In / Re-Consultation</h3>
+                                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">Patient is visiting again? Register their new complaint below to assign a doctor and room.</p>
+                                    <form id="new-visit-form">
+                                        <input type="hidden" id="new-visit-patient-id">
+                                        
+                                        <div class="input-group">
+                                            <label for="new-visit-symptom-cat">New Complaint Category</label>
+                                            <div class="input-wrapper">
+                                                <i data-lucide="stethoscope"></i>
+                                                <select id="new-visit-symptom-cat" required>
+                                                    <option value="" disabled selected>Select new category</option>
+                                                    <option value="eye">Eye Problems</option>
+                                                    <option value="heart">Heart / Chest Problems</option>
+                                                    <option value="general">Fever / Cold / Flu</option>
+                                                    <option value="ortho">Bone / Joint / Muscle Pain</option>
+                                                    <option value="ent">Ear / Nose / Throat (ENT)</option>
+                                                    <option value="other">Other Consultation</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="input-group">
+                                            <label for="new-visit-symptom-details">Specific Symptoms / Medical Issues</label>
+                                            <div class="input-wrapper">
+                                                <textarea id="new-visit-symptom-details" placeholder="Describe symptoms or reasons for this visit..." rows="3" style="width: 100%; min-height: 80px; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px; color: var(--text-primary); font-family: inherit; font-size: 0.95rem; outline: none; transition: all var(--transition-fast); resize: vertical;"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary btn-full" id="btn-submit-new-visit">
+                                            <i data-lucide="check-circle-2"></i> Register Check-In & Get Room
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                                <!-- Consultation Log History -->
+                                <div class="consultation-history-card glass-panel">
+                                    <h3><i data-lucide="history"></i> Visit & History Log</h3>
+                                    <div class="visit-timeline" id="dash-visit-timeline" style="margin-top: 16px; max-height: 300px; overflow-y: auto; padding-right: 8px;">
+                                        <!-- History items will be dynamically injected here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 5: Super Admin Screen -->
+            <!-- SCREEN 5: Super Admin Screen -->
+            <section id="admin-screen" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>Super Admin Dashboard</h2>
+                        <p>Hospital metrics, staffing management, and clinical records.</p>
+                    </div>
+                    <button class="btn btn-danger btn-logout" style="border: 1px solid rgba(239, 68, 68, 0.4);"><i data-lucide="log-out"></i> Logout Staff</button>
+                </div>
+                
+                <!-- Admin Navigation Tabs -->
+                <div class="admin-tabs" style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">
+                    <button class="btn" id="admin-tab-overview" style="background: var(--color-accent); border: none; color: white; padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="line-chart" style="width: 16px; height: 16px;"></i> Overview
+                    </button>
+                    <button class="btn" id="admin-tab-doctors" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="stethoscope" style="width: 16px; height: 16px;"></i> Manage Doctors
+                    </button>
+                    <button class="btn" id="admin-tab-receptionists" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="contact" style="width: 16px; height: 16px;"></i> Manage Receptionists
+                    </button>
+                    <button class="btn" id="admin-tab-patients" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="database" style="width: 16px; height: 16px;"></i> Patient Records
+                    </button>
+                </div>
+
+                <!-- TAB 1: OVERVIEW SECTION -->
+                <div id="admin-overview-section">
+                    <!-- Admin Stats Counters -->
+                    <div class="stats-counters-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 24px;">
+                        <div class="stat-counter-card glass-panel" style="display: flex; align-items: center; gap: 16px; padding: 20px;">
+                            <div class="stat-icon-wrapper" style="background: rgba(6, 182, 212, 0.15); color: var(--color-accent); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                <i data-lucide="users"></i>
+                            </div>
+                            <div class="stat-numbers">
+                                <span class="stat-label" style="font-size: 0.8rem; color: var(--text-secondary); display: block;">Total Patients</span>
+                                <h3 id="admin-stat-patients" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin: 4px 0 0 0;">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-counter-card glass-panel" style="display: flex; align-items: center; gap: 16px; padding: 20px;">
+                            <div class="stat-icon-wrapper" style="background: rgba(34, 197, 94, 0.15); color: var(--color-success); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                <i data-lucide="calendar"></i>
+                            </div>
+                            <div class="stat-numbers">
+                                <span class="stat-label" style="font-size: 0.8rem; color: var(--text-secondary); display: block;">Total Consultations</span>
+                                <h3 id="admin-stat-visits" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin: 4px 0 0 0;">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-counter-card glass-panel" style="display: flex; align-items: center; gap: 16px; padding: 20px;">
+                            <div class="stat-icon-wrapper" style="background: rgba(234, 179, 8, 0.15); color: #eab308; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                <i data-lucide="indian-rupee"></i>
+                            </div>
+                            <div class="stat-numbers">
+                                <span class="stat-label" style="font-size: 0.8rem; color: var(--text-secondary); display: block;">Total Revenue</span>
+                                <h3 id="admin-stat-revenue" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin: 4px 0 0 0;">₹0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid" style="grid-template-columns: 1.2fr 1fr; margin-bottom: 24px;">
+                        <!-- Left: Recent Consultations List -->
+                        <div class="glass-panel" style="padding: 20px;">
+                            <h3><i data-lucide="history"></i> Recent Hospital Activity</h3>
+                            <div style="overflow-x: auto; margin-top: 16px;">
+                                <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                            <th style="padding: 10px 8px;">Patient</th>
+                                            <th style="padding: 10px 8px;">Department</th>
+                                            <th style="padding: 10px 8px;">Doctor</th>
+                                            <th style="padding: 10px 8px;">Fees</th>
+                                            <th style="padding: 10px 8px;">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-recent-visits-table">
+                                        <!-- Dynamic rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right: Department Wise Distribution -->
+                        <div class="glass-panel" style="padding: 20px;">
+                            <h3><i data-lucide="bar-chart-2"></i> Department Wise Load</h3>
+                            <div id="admin-dept-load-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 14px;">
+                                <!-- Dynamic stats list -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MANAGE DOCTORS SECTION -->
+                <div id="admin-doctors-section" style="display: none;">
+                    <div class="glass-panel" style="padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h3><i data-lucide="stethoscope"></i> Registered Doctor Directory</h3>
+                            <button class="btn btn-primary" id="btn-admin-add-doctor" style="margin: 0; padding: 8px 16px; font-size: 0.85rem;"><i data-lucide="plus"></i> Add New Doctor</button>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                        <th style="padding: 10px 8px;">Username</th>
+                                        <th style="padding: 10px 8px;">Name</th>
+                                        <th style="padding: 10px 8px;">Department</th>
+                                        <th style="padding: 10px 8px;">Room</th>
+                                        <th style="padding: 10px 8px;">Consultation Fee</th>
+                                        <th style="padding: 10px 8px;">Status</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-doctors-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: MANAGE RECEPTIONISTS SECTION -->
+                <div id="admin-receptionists-section" style="display: none;">
+                    <div class="glass-panel" style="padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h3><i data-lucide="contact"></i> Active Receptionist Staff</h3>
+                            <button class="btn btn-primary" id="btn-admin-add-receptionist" style="margin: 0; padding: 8px 16px; font-size: 0.85rem;"><i data-lucide="plus"></i> Add New Receptionist</button>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                        <th style="padding: 10px 8px;">Username</th>
+                                        <th style="padding: 10px 8px;">Name</th>
+                                        <th style="padding: 10px 8px;">Password</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-receptionists-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: COMPLETE PATIENT DATABASE TABLE -->
+                <div id="admin-patients-section" style="display: none;">
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h3><i data-lucide="database"></i> Complete Patient Records & Logs</h3>
+                        <div style="overflow-x: auto; margin-top: 16px;">
+                            <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                        <th style="padding: 10px 8px;">ID</th>
+                                        <th style="padding: 10px 8px;">Name</th>
+                                        <th style="padding: 10px 8px;">Age/Gender</th>
+                                        <th style="padding: 10px 8px;">Contact</th>
+                                        <th style="padding: 10px 8px;">Status / Location</th>
+                                        <th style="padding: 10px 8px;">Reg Date</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-patients-db-table">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 6: Doctor Console Screen -->
+            <section id="doctor-screen" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2 id="doctor-panel-title">Doctor Console</h2>
+                        <p>Manage your assigned patient queue and write diagnosis notes.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="tab-switcher" style="display: flex; gap: 8px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.1);">
+                            <button id="doc-tab-consult" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; border: none; margin: 0; background: var(--accent-color); color: white;">Queue</button>
+                            <button id="doc-tab-profile" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; border: none; margin: 0; background: transparent; color: var(--text-secondary);">My Profile</button>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="status-label" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Status:</span>
+                            <select id="doctor-status-select" class="input-field" style="padding: 8px 12px; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.1); background: rgba(15,23,42,0.8); color: var(--text-primary); cursor: pointer; outline: none; min-width: 120px; box-shadow: none; margin: 0;">
+                                <option value="Available">🟢 Available</option>
+                                <option value="Busy">🟡 Busy</option>
+                                <option value="On Break">☕ On Break</option>
+                                <option value="Absent">🔴 Absent</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-danger btn-logout" style="border: 1px solid rgba(239, 68, 68, 0.4); margin: 0;"><i data-lucide="log-out"></i> Logout Staff</button>
+                    </div>
+                </div>
+
+                <div id="doctor-consult-section" class="doctor-panel-layout" style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; align-items: start;">
+                    <!-- Patient Queue List -->
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h3><i data-lucide="users"></i> Today's Queue</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">Select a patient from the queue to start consulting.</p>
+                        <div id="doctor-queue-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 500px; overflow-y: auto;">
+                            <!-- Queue cards will be injected here -->
+                        </div>
+                        
+                        <!-- Today's Scheduled Appointments -->
+                        <div class="glass-panel" style="padding: 20px; margin-top: 20px;">
+                            <h3><i data-lucide="calendar"></i> Today's Appointments</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Patients booked for today who haven't arrived yet.</p>
+                            <div id="doctor-appointments-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;">
+                                <!-- Scheduled cards will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selected Patient Treatment Panel -->
+                    <div id="doctor-consult-panel" class="glass-panel highlight-border" style="display: none; padding: 20px;">
+                        <h3 style="color: var(--color-success);"><i data-lucide="activity"></i> Active Consultation</h3>
+                        
+                        <div class="profile-header-layout" style="margin: 20px 0; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div class="profile-avatar">
+                                <img id="doc-patient-photo" src="/static/placeholder.jpg" alt="Patient Avatar">
+                            </div>
+                            <div class="profile-headline">
+                                <h3 id="doc-patient-name" style="margin: 0; color: var(--text-primary);">Patient Name</h3>
+                                <span id="doc-patient-id" class="patient-id-badge">#1001</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-details-list" style="margin-bottom: 24px;">
+                            <div class="detail-row">
+                                <span>Age / Gender:</span>
+                                <strong id="doc-patient-age-gender">30 / Male</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span>Contact No:</span>
+                                <strong id="doc-patient-contact">9876543210</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span>Main Complaint:</span>
+                                <strong id="doc-patient-complaint" style="color: var(--color-accent);">Eye Redness</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span>Details:</span>
+                                <strong id="doc-patient-symptom-desc">Details here</strong>
+                            </div>
+                        </div>
+
+                        <!-- Prescription/Treatment notes form -->
+                        <form id="doctor-treatment-form">
+                            <input type="hidden" id="doc-active-visit-id">
+                            <div class="input-group" style="margin-bottom: 14px;">
+                                <label for="doc-diagnosis">Diagnosis</label>
+                                <input type="text" id="doc-diagnosis" placeholder="e.g., Acute Conjunctivitis, Migraine, Dental Caries" required style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none; font-size: 0.9rem;">
+                            </div>
+                            <div class="input-group" style="margin-bottom: 14px;">
+                                <label for="doc-prescription">Prescription / Medication</label>
+                                <textarea id="doc-prescription" placeholder="e.g., Tab Paracetamol 500mg (1-0-1) x 3 days" rows="3" required style="width: 100%; min-height: 80px; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); font-family: inherit; font-size: 0.9rem; outline: none; resize: vertical;"></textarea>
+                            </div>
+                            <div class="input-group" style="margin-bottom: 18px;">
+                                <label for="doc-treatment-notes">Treatment Advice / Follow-up Notes</label>
+                                <textarea id="doc-treatment-notes" placeholder="e.g., Avoid bright light. Drink plenty of water. Follow up in 3 days." rows="3" required style="width: 100%; min-height: 80px; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); font-family: inherit; font-size: 0.9rem; outline: none; resize: vertical;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-full">
+                                <i data-lucide="check"></i> Submit Treatment & Complete Check-In
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Consult Empty State -->
+                    <div id="doctor-consult-empty" class="glass-panel" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; color: var(--text-muted); text-align: center; padding: 20px;">
+                        <i data-lucide="stethoscope" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+                        <p>No patient selected from the queue.</p>
+                        <p style="font-size: 0.85rem; max-width: 250px; margin-top: 4px;">Click on any patient in the list to open their consultation card.</p>
+                    </div>
+                </div>
+
+                <!-- Doctor Profile/Biography Editor -->
+                <div id="doctor-profile-section" class="glass-panel" style="display: none; padding: 24px; max-width: 700px; margin: 20px auto;">
+                    <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px; color: var(--text-primary);">
+                        <i data-lucide="user" style="color: var(--accent-color);"></i> Edit Professional Profile
+                    </h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">
+                        Update your professional details. These details will be visible to patients and administrators.
+                    </p>
+                    
+                    <form id="doctor-profile-form">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Full Name</label>
+                            <input type="text" id="doc-profile-name" disabled style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; color: var(--text-secondary); font-size: 0.9rem;" value="">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Department</label>
+                            <input type="text" id="doc-profile-dept" disabled style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; color: var(--text-secondary); font-size: 0.9rem;" value="">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Years of Experience</label>
+                            <input type="number" id="doc-profile-experience" required min="0" max="80" style="width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; color: var(--text-primary); font-size: 0.9rem; outline: none;">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Qualification / Degree</label>
+                            <input type="text" id="doc-profile-qualification" required placeholder="e.g., MBBS, MD Cardiology, FACC" style="width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; color: var(--text-primary); font-size: 0.9rem; outline: none;">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Professional Biography (Bio)</label>
+                            <textarea id="doc-profile-bio" rows="5" placeholder="Tell patients about your medical background, specialization, and approach to care..." style="width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; color: var(--text-primary); font-size: 0.9rem; outline: none; font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="save"></i> Save Profile Details
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- SCREEN 7: Receptionist Console Screen -->
+            <section id="receptionist-screen" class="screen">
+                <div class="screen-header">
+                    <div>
+                        <h2>Receptionist Portal</h2>
+                        <p>View full patient registry, shift wards, transfer hospitals, log deaths, and manage doctor database.</p>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <button class="btn btn-primary" id="btn-receptionist-new-patient" style="margin: 0;"><i data-lucide="user-plus"></i> New Patient Sign-Up</button>
+                        <button class="btn btn-danger btn-logout" style="border: 1px solid rgba(239, 68, 68, 0.4); margin: 0;"><i data-lucide="log-out"></i> Logout Staff</button>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <div class="recep-tabs" style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">
+                    <button class="btn" id="recep-tab-patients" style="background: var(--color-accent); border: none; color: white; padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="users" style="width: 16px; height: 16px;"></i> Patient Directory
+                    </button>
+                    <button class="btn" id="recep-tab-appointments" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="calendar" style="width: 16px; height: 16px;"></i> Scheduled Appointments
+                    </button>
+                    <button class="btn" id="recep-tab-doctors" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 10px 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md);">
+                        <i data-lucide="stethoscope" style="width: 16px; height: 16px;"></i> Manage Doctors
+                    </button>
+                </div>
+
+                <!-- Patient Section -->
+                <div id="recep-patients-section">
+                    <div class="search-bar-container glass-panel" style="margin-bottom: 24px; padding: 20px; display: flex; gap: 16px; align-items: center;">
+                        <div class="input-wrapper" style="flex: 1; margin: 0;">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="receptionist-search-input" placeholder="Search patient database by name or phone...">
+                        </div>
+                        <button class="btn btn-primary" id="btn-receptionist-search-trigger" style="margin: 0; padding: 12px 24px;"><i data-lucide="search"></i> Search</button>
+                    </div>
+
+                    <!-- Directory Results list -->
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h3><i data-lucide="users"></i> Complete Patient Directory</h3>
+                        <div style="overflow-x: auto; margin-top: 16px;">
+                            <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                        <th style="padding: 10px 8px;">ID</th>
+                                        <th style="padding: 10px 8px;">Patient Name</th>
+                                        <th style="padding: 10px 8px;">Age/Gender</th>
+                                        <th style="padding: 10px 8px;">Contact Number</th>
+                                        <th style="padding: 10px 8px;">Location/Status</th>
+                                        <th style="padding: 10px 8px;">Registered Date</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="receptionist-directory-table">
+                                    <!-- Dynamic receptionist table rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctors Section -->
+                <div id="recep-doctors-section" style="display: none;">
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h3><i data-lucide="stethoscope"></i> Registered Doctor Directory</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">Configure departments, room numbers, consultation fees, and active availability of doctors.</p>
+                        <div style="overflow-x: auto;">
+                            <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                        <th style="padding: 10px 8px;">Username</th>
+                                        <th style="padding: 10px 8px;">Doctor Name</th>
+                                        <th style="padding: 10px 8px;">Department</th>
+                                        <th style="padding: 10px 8px;">Room Number</th>
+                                        <th style="padding: 10px 8px;">Consultation Fee</th>
+                                        <th style="padding: 10px 8px;">Status</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="receptionist-doctors-table">
+                                    <!-- Dynamic doctor table rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Scheduled Appointments Section -->
+                <div id="recep-appointments-section" style="display: none;">
+                    <div class="glass-panel" style="padding: 20px;">
+                        <h3><i data-lucide="calendar"></i> Scheduled Online Appointments</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">View scheduled consultations booked from home and check in patients upon their arrival.</p>
+                        
+                        <!-- Appointment Check-In Verification Bar -->
+                        <div class="appointment-search-bar" style="margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-end; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-md);">
+                            <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                                <label style="font-size: 0.8rem; margin-bottom: 6px; color: var(--text-secondary);">Check-In by Appointment ID, Patient ID, or Phone</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="search"></i>
+                                    <input type="text" id="recep-apt-search-input" placeholder="Type ID (e.g. 1) or Phone...">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" id="btn-recep-apt-verify" style="height: 42px; background: var(--color-accent); border-color: var(--color-accent);">Verify ID</button>
+                            <button class="btn btn-outline" id="btn-recep-apt-face-scan" style="height: 42px; display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="scan-face"></i> Face Check-In</button>
+                        </div>
+
+                        <div style="overflow-x: auto;">
+                            <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary);">
+                                        <th style="padding: 10px 8px;">Date / Slot</th>
+                                        <th style="padding: 10px 8px;">Patient Name (ID)</th>
+                                        <th style="padding: 10px 8px;">Age/Gender</th>
+                                        <th style="padding: 10px 8px;">Contact</th>
+                                        <th style="padding: 10px 8px;">Doctor (Dept)</th>
+                                        <th style="padding: 10px 8px;">Status</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="receptionist-appointments-table">
+                                    <!-- Dynamic scheduled rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 8: Appointment Booking Screen -->
+            <section id="appointment-booking-screen" class="screen">
+                <div class="screen-header">
+                    <button class="btn-back btn-icon-only" id="btn-back-appointment"><i data-lucide="chevron-left"></i></button>
+                    <div>
+                        <h2>Book Doctor Appointment</h2>
+                        <p>Schedule your consultation date and time slot from home.</p>
+                    </div>
+                </div>
+
+                <div class="booking-wizard glass-panel" style="max-width: 800px; margin: 0 auto; padding: 30px; border-radius: var(--radius-lg); position: relative;">
+                    <!-- Wizard Steps Indicator -->
+                    <div class="wizard-steps" style="display: flex; justify-content: space-between; margin-bottom: 40px; position: relative;">
+                        <div class="wizard-line" style="position: absolute; top: 15px; left: 10%; right: 10%; height: 2px; background: rgba(255,255,255,0.1); z-index: 1;"></div>
+                        <div class="wizard-line-progress" id="wizard-progress-line" style="position: absolute; top: 15px; left: 10%; width: 0%; height: 2px; background: var(--accent-color); z-index: 1; transition: width 0.3s;"></div>
+                        
+                        <div class="wizard-step active" id="step-indicator-1" style="z-index: 2; text-align: center; width: 30%;">
+                            <span class="step-num" style="width: 32px; height: 32px; border-radius: 50%; background: var(--accent-color); color: white; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-bottom: 8px; border: 2px solid var(--accent-color); transition: all 0.3s;">1</span>
+                            <p style="font-size: 0.85rem; color: var(--text-primary); font-weight: 500;">Identification</p>
+                        </div>
+                        <div class="wizard-step" id="step-indicator-2" style="z-index: 2; text-align: center; width: 30%;">
+                            <span class="step-num" style="width: 32px; height: 32px; border-radius: 50%; background: rgba(15, 23, 42, 0.8); color: var(--text-secondary); display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-bottom: 8px; border: 2px solid var(--border-color); transition: all 0.3s;">2</span>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Schedule</p>
+                        </div>
+                        <div class="wizard-step" id="step-indicator-3" style="z-index: 2; text-align: center; width: 30%;">
+                            <span class="step-num" style="width: 32px; height: 32px; border-radius: 50%; background: rgba(15, 23, 42, 0.8); color: var(--text-secondary); display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-bottom: 8px; border: 2px solid var(--border-color); transition: all 0.3s;">3</span>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Confirmation</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 1 Content: Identification -->
+                    <div class="wizard-content-step active" id="booking-step-1">
+                        <h3 style="margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 8px;"><i data-lucide="user"></i> Patient Identification</h3>
+                        
+                        <div class="patient-type-selection" style="display: flex; gap: 20px; margin-bottom: 30px;">
+                            <label class="btn-check-label" style="flex: 1; padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-md); text-align: center; cursor: pointer; transition: all 0.2s;">
+                                <input type="radio" name="booking-patient-type" value="existing" checked style="display:none;">
+                                <i data-lucide="user-check" style="width: 24px; height: 24px; color: var(--accent-color); margin-bottom: 8px;"></i>
+                                <div style="font-weight: 600; color: var(--text-primary);">Registered Patient</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">Search by ID or Phone</div>
+                            </label>
+                            <label class="btn-check-label" style="flex: 1; padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-md); text-align: center; cursor: pointer; transition: all 0.2s; opacity: 0.6;">
+                                <input type="radio" name="booking-patient-type" value="new" style="display:none;">
+                                <i data-lucide="user-plus" style="width: 24px; height: 24px; color: #10b981; margin-bottom: 8px;"></i>
+                                <div style="font-weight: 600; color: var(--text-primary);">New Patient</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">Register and scan face</div>
+                            </label>
+                        </div>
+
+                        <!-- Panel for Existing Patient -->
+                        <div id="booking-existing-panel">
+                            <div class="input-group" style="margin-bottom: 20px;">
+                                <label>Patient ID or Contact Number</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <div class="input-wrapper" style="flex: 1;">
+                                        <i data-lucide="search"></i>
+                                        <input type="text" id="booking-search-input" placeholder="Enter Patient ID (e.g. 1) or Contact No.">
+                                    </div>
+                                    <button class="btn btn-secondary" id="btn-booking-search">Verify Patient</button>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin: 20px 0; color: var(--text-secondary); font-size: 0.9rem;">— OR —</div>
+                            
+                            <div style="text-align: center;">
+                                <button class="btn btn-outline" id="btn-booking-face-scan" style="margin: 0 auto; display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="scan-face"></i> Verify using Face Scan</button>
+                            </div>
+
+                            <div id="booking-search-result" style="margin-top: 25px; display: none;"></div>
+                        </div>
+
+                        <!-- Panel for New Patient -->
+                        <div id="booking-new-panel" style="display: none;">
+                            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
+                                <div style="display: flex; flex-direction: column; gap: 16px;">
+                                    <div class="input-group">
+                                        <label>Full Name</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="user"></i>
+                                            <input type="text" id="booking-new-name" placeholder="Enter full name">
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px;">
+                                        <div class="input-group">
+                                            <label>Age</label>
+                                            <div class="input-wrapper">
+                                                <i data-lucide="calendar-days"></i>
+                                                <input type="number" id="booking-new-age" placeholder="Age" min="1" max="120">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Gender</label>
+                                            <div class="select-wrapper">
+                                                <i data-lucide="chevron-down"></i>
+                                                <select id="booking-new-gender" style="padding-left: 14px;">
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Contact Number</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="phone"></i>
+                                            <input type="text" id="booking-new-contact" placeholder="10-digit number">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed var(--border-color); border-radius: var(--radius-md); padding: 20px; background: rgba(255,255,255,0.01);">
+                                    <div class="camera-container" style="width: 100%; max-width: 240px; aspect-ratio: 4/3; border-radius: var(--radius-md); border: 2px solid var(--border-color); overflow: hidden; position: relative; background: #000; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                                        <video id="booking-webcam" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; display: none; transform: scaleX(-1);"></video>
+                                        <canvas id="booking-photo-canvas" style="display: none; width: 100%; height: 100%; object-fit: cover;"></canvas>
+                                        <img id="booking-photo-preview" src="/static/placeholder.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div class="camera-overlay" id="booking-camera-placeholder-text" style="color: var(--text-secondary); font-size: 0.85rem; text-align: center; padding: 10px;">Camera is Off</div>
+                                    </div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button type="button" class="btn btn-secondary btn-sm" id="btn-booking-start-camera" style="padding: 6px 12px; font-size: 0.75rem;"><i data-lucide="video"></i> Start</button>
+                                        <button type="button" class="btn btn-primary btn-sm" id="btn-booking-capture-photo" disabled style="padding: 6px 12px; font-size: 0.75rem;"><i data-lucide="camera"></i> Capture</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                            <button class="btn btn-primary" id="btn-booking-next-1" disabled style="display: inline-flex; align-items: center; gap: 8px;">Next Step <i data-lucide="arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 Content: Schedule Details -->
+                    <div class="wizard-content-step" id="booking-step-2" style="display: none;">
+                        <h3 style="margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 8px;"><i data-lucide="calendar"></i> Date, Time & Symptoms</h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px;">
+                            <div class="input-group">
+                                <label for="booking-symptom-cat">Symptom Category</label>
+                                <div class="select-wrapper">
+                                    <i data-lucide="chevron-down"></i>
+                                    <select id="booking-symptom-cat">
+                                        <option value="general">General Medicine / Fever / Infection</option>
+                                        <option value="heart">Cardiology / Chest Pain / Heart Issues</option>
+                                        <option value="eye">Ophthalmology / Vision / Eye Issues</option>
+                                        <option value="bone">Orthopedics / Bones / Joints / Fractures</option>
+                                        <option value="skin">Dermatology / Skin Allergy / Rash</option>
+                                        <option value="child">Pediatrics / Child Health</option>
+                                        <option value="ent">ENT / Ear, Nose, Throat</option>
+                                        <option value="dental">Dental / Toothache / Gums</option>
+                                        <option value="other">Other Medical consultation</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="booking-date">Appointment Date</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="calendar-days"></i>
+                                    <input type="date" id="booking-date" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px;">
+                            <div class="input-group">
+                                <label for="booking-time-slot">Preferred Time Slot</label>
+                                <div class="select-wrapper">
+                                    <i data-lucide="chevron-down"></i>
+                                    <select id="booking-time-slot" required>
+                                        <option value="">Select a time slot</option>
+                                        <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                                        <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                                        <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                        <option value="12:00 PM - 01:00 PM">12:00 PM - 01:00 PM</option>
+                                        <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                                        <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                                        <option value="04:00 PM - 05:00 PM">04:00 PM - 05:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="booking-symptom-details">Symptom Details (Optional)</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="info"></i>
+                                    <input type="text" id="booking-symptom-details" placeholder="Briefly explain your issue">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                            <button class="btn btn-secondary" id="btn-booking-prev-2" style="display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="arrow-left"></i> Back</button>
+                            <button class="btn btn-primary" id="btn-submit-booking" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border-color: #8b5cf6; display: inline-flex; align-items: center; gap: 8px;">Confirm & Book <i data-lucide="check-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 Content: Success Slip -->
+                    <div class="wizard-content-step" id="booking-step-3" style="display: none; text-align: center;">
+                        <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(16, 185, 129, 0.1); color: #10b981; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                            <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h3 style="color: #10b981; margin-bottom: 8px;">Appointment Confirmed!</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">Please take a screenshot of your appointment slip or print it below.</p>
+
+                        <!-- Printable Appointment Slip -->
+                        <div class="appointment-slip-card" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; text-align: left; max-width: 480px; margin: 0 auto 24px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border-top: 4px solid #8b5cf6; position: relative; overflow: hidden;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px dashed var(--border-color); padding-bottom: 12px;">
+                                <div>
+                                    <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 4px;">AuraHealth Consultation</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.75rem;">Online Appointment Slip</p>
+                                </div>
+                                <span id="booking-slip-id" style="font-size: 0.85rem; font-weight: 700; color: #8b5cf6; background: rgba(139, 92, 246, 0.1); padding: 4px 8px; border-radius: var(--radius-sm);">#APT-00</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 2px;">Patient Name</span>
+                                    <strong id="booking-slip-patient-name" style="color: var(--text-primary); font-size: 0.9rem;">-</strong>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 2px;">Patient ID</span>
+                                    <strong id="booking-slip-patient-id" style="color: var(--text-primary); font-size: 0.9rem;">-</strong>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 2px;">Appointment Date</span>
+                                    <strong id="booking-slip-date" style="color: var(--text-primary); font-size: 0.9rem;">-</strong>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 2px;">Time Slot</span>
+                                    <strong id="booking-slip-time" style="color: var(--text-primary); font-size: 0.9rem;">-</strong>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 2px;">Assigned Doctor</span>
+                                    <strong id="booking-slip-doctor" style="color: var(--text-primary); font-size: 0.9rem;">-</strong>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 2px;">Room & Fees</span>
+                                    <strong id="booking-slip-room-fees" style="color: var(--text-primary); font-size: 0.9rem;">-</strong>
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); padding: 10px; border: 1px solid var(--border-color); text-align: center; font-size: 0.75rem; color: var(--text-secondary);">
+                                Please arrive 10 mins before your slot and verify at the reception.
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 12px; justify-content: center;">
+                            <button class="btn btn-outline" id="btn-booking-print-slip"><i data-lucide="printer"></i> Print Slip</button>
+                            <button class="btn btn-primary" id="btn-booking-finish" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border-color: #8b5cf6;">Back to Home</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2026 AuraHealth Medical Systems. All rights reserved.</p>
+            <div class="footer-badges">
+                <span><i data-lucide="shield"></i> Encrypted</span>
+                <span><i data-lucide="server"></i> Local Database</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODAL: Update Patient Details -->
+    <div id="modal-update-patient" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 480px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="user-cog" style="width: 20px; height: 20px;"></i> Update Patient Profile</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-update-patient')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="form-update-patient">
+                <input type="hidden" id="edit-patient-id">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="edit-patient-name">Patient Name</label>
+                    <input type="text" id="edit-patient-name" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="edit-patient-age">Age</label>
+                        <input type="number" id="edit-patient-age" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="edit-patient-gender">Gender</label>
+                        <select id="edit-patient-gender" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none; background-color: rgb(15, 23, 42);">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 24px;">
+                    <label for="edit-patient-contact">Contact Number</label>
+                    <input type="text" id="edit-patient-contact" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-update-patient')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-full">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Transfer Patient -->
+    <div id="modal-transfer-patient" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 480px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="git-compare" style="width: 20px; height: 20px;"></i> Transfer / Shift Patient</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-transfer-patient')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="form-transfer-patient">
+                <input type="hidden" id="transfer-patient-id">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="transfer-type-select">Transfer Type</label>
+                    <select id="transfer-type-select" class="input-field" style="width: 100%; background-color: rgb(15, 23, 42); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                        <option value="ward">Internal Ward Shift (e.g. Ward to ICU)</option>
+                        <option value="hospital">Transfer to Another Hospital (Referral)</option>
+                    </select>
+                </div>
+                
+                <!-- Internal Ward Fields -->
+                <div id="transfer-ward-fields" style="margin-bottom: 24px;">
+                    <div class="input-group" style="margin-bottom: 16px;">
+                        <label for="transfer-ward">Select Target Ward / Unit</label>
+                        <select id="transfer-ward" class="input-field" style="width: 100%; background-color: rgb(15, 23, 42); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                            <option value="General Ward">General Ward</option>
+                            <option value="ICU">ICU (Intensive Care Unit)</option>
+                            <option value="Semi-Private Ward">Semi-Private Ward</option>
+                            <option value="Deluxe Ward">Deluxe Ward</option>
+                            <option value="Emergency Care">Emergency Care</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="transfer-room">Bed / Room Number</label>
+                        <input type="text" id="transfer-room" placeholder="e.g. ICU-04, Room 204-B" class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                
+                <!-- External Hospital Fields -->
+                <div id="transfer-hospital-fields" style="display: none; margin-bottom: 24px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="transfer-hospital-name">Destination Hospital Name</label>
+                        <input type="text" id="transfer-hospital-name" placeholder="e.g. AIIMS Delhi, Fortis Hospital" class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-transfer-patient')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-full">Execute Transfer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Record Patient Death -->
+    <div id="modal-death-patient" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 480px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: #ef4444; display: flex; align-items: center; gap: 8px;"><i data-lucide="heart-off" style="width: 20px; height: 20px;"></i> Record Death Registry</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-death-patient')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="form-death-patient">
+                <input type="hidden" id="death-patient-id">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="death-date">Date & Time of Decease</label>
+                    <input type="datetime-local" id="death-date" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                </div>
+                <div class="input-group" style="margin-bottom: 24px;">
+                    <label for="death-cause">Primary Cause of Death</label>
+                    <textarea id="death-cause" placeholder="e.g. Cardiac Arrest, Multi-organ failure" required class="input-field" rows="3" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-death-patient')">Cancel</button>
+                    <button type="submit" class="btn btn-danger btn-full">Record Registry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit Doctor Details -->
+    <div id="modal-edit-doctor" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 480px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="stethoscope" style="width: 20px; height: 20px;"></i> Edit Doctor Configuration</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-edit-doctor')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="form-edit-doctor">
+                <input type="hidden" id="edit-doctor-id">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label>Doctor Name</label>
+                    <input type="text" id="edit-doctor-name" readonly class="input-field" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-muted); outline: none;">
+                </div>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="edit-doctor-dept">Department</label>
+                    <select id="edit-doctor-dept" required class="input-field" style="width: 100%; background-color: rgb(15, 23, 42); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                        <option value="General Medicine">General Medicine</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Dental">Dental</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="ENT">ENT</option>
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="edit-doctor-room">Room Number</label>
+                        <input type="text" id="edit-doctor-room" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="edit-doctor-fee">Consultation Fee (₹)</label>
+                        <input type="number" id="edit-doctor-fee" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="edit-doctor-experience">Years of Experience</label>
+                        <input type="number" id="edit-doctor-experience" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="edit-doctor-qualification">Qualification / Degree</label>
+                        <input type="text" id="edit-doctor-qualification" required class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="edit-doctor-bio">Professional Biography (Bio)</label>
+                    <textarea id="edit-doctor-bio" rows="3" class="input-field" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                <div class="input-group" style="margin-bottom: 24px;">
+                    <label for="edit-doctor-status">Doctor Status</label>
+                    <select id="edit-doctor-status" required class="input-field" style="width: 100%; background-color: rgb(15, 23, 42); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                        <option value="Available">🟢 Available</option>
+                        <option value="Busy">🟡 Busy</option>
+                        <option value="On Break">☕ On Break</option>
+                        <option value="Absent">🔴 Absent</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-edit-doctor')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-full">Save Configuration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Add/Edit Doctor (Super Admin) -->
+    <div id="modal-admin-doctor" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 480px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 id="admin-doctor-modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="stethoscope" style="width: 20px; height: 20px;"></i> Add New Doctor</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-admin-doctor')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="form-admin-doctor">
+                <input type="hidden" id="admin-doctor-id">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-name">Doctor Name</label>
+                        <input type="text" id="admin-doctor-name" required class="input-field" placeholder="Dr. John Watson" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-dept">Department</label>
+                        <select id="admin-doctor-dept" required class="input-field" style="width: 100%; background-color: rgb(15, 23, 42); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                            <option value="General Medicine">General Medicine</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Dental">Dental</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="ENT">ENT</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-username">Username</label>
+                        <input type="text" id="admin-doctor-username" required class="input-field" placeholder="drjohn" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-password">Password</label>
+                        <input type="password" id="admin-doctor-password" required class="input-field" placeholder="Password123" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-room">Room Number</label>
+                        <input type="text" id="admin-doctor-room" required class="input-field" placeholder="Room-302" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-fee">Consultation Fee (₹)</label>
+                        <input type="number" id="admin-doctor-fee" required class="input-field" placeholder="500" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-experience">Years of Experience</label>
+                        <input type="number" id="admin-doctor-experience" required class="input-field" placeholder="10" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-doctor-qualification">Qualification / Degree</label>
+                        <input type="text" id="admin-doctor-qualification" required class="input-field" placeholder="MBBS, MD" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="admin-doctor-bio">Professional Biography (Bio)</label>
+                    <textarea id="admin-doctor-bio" rows="3" class="input-field" placeholder="Biography details..." style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                <div class="input-group" style="margin-bottom: 24px;">
+                    <label for="admin-doctor-status">Doctor Status</label>
+                    <select id="admin-doctor-status" required class="input-field" style="width: 100%; background-color: rgb(15, 23, 42); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                        <option value="Available">🟢 Available</option>
+                        <option value="Busy">🟡 Busy</option>
+                        <option value="On Break">☕ On Break</option>
+                        <option value="Absent">🔴 Absent</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-admin-doctor')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-full">Save Doctor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Add/Edit Receptionist (Super Admin) -->
+    <div id="modal-admin-receptionist" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 480px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 id="admin-recep-modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="contact" style="width: 20px; height: 20px;"></i> Add Receptionist</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-admin-receptionist')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="form-admin-receptionist">
+                <input type="hidden" id="admin-recep-id">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="admin-recep-name">Full Name</label>
+                    <input type="text" id="admin-recep-name" required class="input-field" placeholder="Receptionist Name" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-recep-username">Username</label>
+                        <input type="text" id="admin-recep-username" required class="input-field" placeholder="recep_user" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                    <div class="input-group" style="margin: 0;">
+                        <label for="admin-recep-password">Password</label>
+                        <input type="password" id="admin-recep-password" required class="input-field" placeholder="Secret123" style="width: 100%; background-color: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; color: var(--text-primary); outline: none;">
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <label style="margin-bottom: 8px; display: block; font-size: 0.85rem; color: var(--text-secondary);">Receptionist Access Permissions</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-register" value="register_patient" checked style="accent-color: var(--color-accent);"> Register Patients
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-book" value="book_appointment" checked style="accent-color: var(--color-accent);"> Book Appointments
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-checkin" value="checkin_appointment" checked style="accent-color: var(--color-accent);"> Check-In Verification
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-transfer" value="transfer_patient" checked style="accent-color: var(--color-accent);"> Ward Transfers
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-discharge" value="discharge_patient" checked style="accent-color: var(--color-accent);"> Discharge Patients
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-death" value="report_death" checked style="accent-color: var(--color-accent);"> Report Patient Death
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary);">
+                            <input type="checkbox" id="perm-delete" value="delete_patient" checked style="accent-color: var(--color-accent);"> Delete Patients
+                        </label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-admin-receptionist')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-full">Save Receptionist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: View Patient Visit History (Super Admin) -->
+    <div id="modal-admin-history" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 600px; max-height: 80vh; overflow-y: auto; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="history" style="width: 20px; height: 20px;"></i> Consultation History</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-admin-history')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            
+            <div id="admin-history-patient-info" style="display: flex; gap: 16px; align-items: center; background: rgba(255,255,255,0.02); padding: 16px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.05);">
+                <!-- Profile details -->
+            </div>
+            
+            <div id="admin-history-timeline" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Timeline items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Receptionist Appointment Verification & Check-In -->
+    <div id="modal-recep-apt-verify" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 500px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: #10b981; display: flex; align-items: center; gap: 8px;"><i data-lucide="check-circle"></i> Appointment Verified!</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-recep-apt-verify')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            
+            <div id="recep-verify-modal-details" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
+                <!-- Filled dynamically via JS -->
+            </div>
+            
+            <div style="display: flex; gap: 12px;">
+                <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-recep-apt-verify')">Cancel</button>
+                <button type="button" class="btn btn-success btn-full" id="btn-recep-confirm-checkin" style="background: #10b981; border-color: #10b981; color: white;">Confirm & Check-In</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Receptionist Appointment Face Scan Check-In -->
+    <div id="modal-recep-apt-face-scan" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 450px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="scan-face"></i> Face Check-In</h3>
+                <button type="button" class="btn-close-modal" id="btn-recep-face-scan-close" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="camera-container" style="width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-md); border: 2px solid var(--border-color); overflow: hidden; position: relative; background: #000; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                    <video id="recep-face-webcam" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+                    <canvas id="recep-face-canvas" style="display: none; width: 100%; height: 100%;"></canvas>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center;">Center patient's face in the camera frame.</p>
+            </div>
+            
+            <div style="display: flex; gap: 12px;">
+                <button type="button" class="btn btn-secondary btn-full" id="btn-recep-face-scan-cancel">Cancel</button>
+                <button type="button" class="btn btn-primary btn-full" id="btn-recep-face-scan-capture">Capture & Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Booking Face Scan -->
+    <div id="modal-booking-face-scan" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 450px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="scan-face"></i> Verify using Face Scan</h3>
+                <button type="button" class="btn-close-modal" id="btn-booking-face-close" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="camera-container" style="width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-md); border: 2px solid var(--border-color); overflow: hidden; position: relative; background: #000; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                    <video id="booking-face-webcam" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+                    <canvas id="booking-face-canvas" style="display: none; width: 100%; height: 100%;"></canvas>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center;">Center your face in the camera frame.</p>
+            </div>
+            
+            <div style="display: flex; gap: 12px;">
+                <button type="button" class="btn btn-secondary btn-full" id="btn-booking-face-cancel">Cancel</button>
+                <button type="button" class="btn btn-primary btn-full" id="btn-booking-face-capture">Capture & Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Doctor Prescription Print -->
+    <div id="modal-doctor-prescription-print" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 650px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1); max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="printer"></i> Prescription Prepared</h3>
+                <button type="button" class="btn-close-modal" onclick="closeModal('modal-doctor-prescription-print')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            
+            <!-- Prescription Slip Area (targets printing) -->
+            <div id="prescription-print-area" class="prescription-print-card" style="background: #ffffff; color: #000000; padding: 40px; border-radius: var(--radius-md); font-family: 'Inter', sans-serif; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 24px;">
+                <div style="text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 15px; margin-bottom: 20px;">
+                    <h2 style="margin: 0; font-size: 1.75rem; color: #0f172a; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">AuraHealth Hospital</h2>
+                    <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: #475569;">Sector-5, Medical Square, Health City</p>
+                    <p style="margin: 2px 0 0 0; font-size: 0.85rem; color: #475569;">Tel: +91 98765-43210 | Email: contact@aurahealth.com</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem; margin-bottom: 20px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 15px;">
+                    <div>
+                        <p style="margin: 4px 0;"><strong>Patient Name:</strong> <span id="print-presc-patient-name">-</span></p>
+                        <p style="margin: 4px 0;"><strong>Age / Gender:</strong> <span id="print-presc-patient-age-gender">-</span></p>
+                        <p style="margin: 4px 0;"><strong>Contact No:</strong> <span id="print-presc-patient-contact">-</span></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="margin: 4px 0;"><strong>Date:</strong> <span id="print-presc-date">-</span></p>
+                        <p style="margin: 4px 0;"><strong>Doctor Name:</strong> <span id="print-presc-doc-name">-</span></p>
+                        <p style="margin: 4px 0;"><strong>Department:</strong> <span id="print-presc-doc-dept">-</span></p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h4 style="margin: 0 0 8px 0; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 1rem;">DIAGNOSIS</h4>
+                    <p id="print-presc-diagnosis" style="margin: 0; font-size: 0.95rem; font-style: italic; color: #334155;">-</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h4 style="margin: 0 0 8px 0; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 1rem; display: flex; align-items: center; gap: 6px;"><span style="font-size: 1.25rem; font-weight: 800;">Rx</span> PRESCRIPTION</h4>
+                    <p id="print-presc-medication" style="margin: 0; font-size: 0.95rem; white-space: pre-line; line-height: 1.6; color: #1e293b;">-</p>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="margin: 0 0 8px 0; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 1rem;">FOLLOW-UP ADVICE / NOTES</h4>
+                    <p id="print-presc-notes" style="margin: 0; font-size: 0.95rem; white-space: pre-line; line-height: 1.5; color: #334155;">-</p>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                    <p style="margin: 0; font-size: 0.8rem; color: #64748b;">*Generated electronically via AuraHealth Portal.</p>
+                    <div style="text-align: center; width: 150px;">
+                        <div style="border-bottom: 1px solid #0f172a; height: 30px;"></div>
+                        <p style="margin: 4px 0 0 0; font-size: 0.8rem; font-weight: 600; color: #0f172a;">Doctor Signature</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 12px;">
+                <button type="button" class="btn btn-secondary btn-full" onclick="closeModal('modal-doctor-prescription-print')">Close & Back</button>
+                <button type="button" class="btn btn-primary btn-full" id="btn-print-presc-trigger" style="background: var(--color-accent); border-color: var(--color-accent);"><i data-lucide="printer"></i> Print Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="width: 100%; max-width: 400px; padding: 32px; border-radius: var(--radius-lg); position: relative; border: 1px solid rgba(255,255,255,0.1); animation: fadeIn 0.3s forwards;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 8px;"><i data-lucide="lock" style="width: 20px; height: 20px;"></i> Staff Portal Login</h3>
+                <button id="btn-close-login" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.15rem; transition: color 0.2s;"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-username">Username</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user"></i>
+                        <input type="text" id="login-username" required placeholder="Enter username" autocomplete="off">
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 24px;">
+                    <label for="login-password">Password</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="key-round"></i>
+                        <input type="password" id="login-password" required placeholder="Enter password">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" style="padding: 14px; font-weight: 600; font-size: 1rem;">
+                    <i data-lucide="log-in"></i> Access Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <span id="toast-message">Notification message here</span>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
