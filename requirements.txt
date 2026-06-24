@@ -1,6 +1,5 @@
 Flask==3.0.0
 gunicorn==21.2.0
 cmake
---only-binary=dlib,face_recognition,face_recognition_models
 dlib
 face_recognition
