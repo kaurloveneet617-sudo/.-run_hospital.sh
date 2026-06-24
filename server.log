@@ -7,72 +7,11 @@
 [33mPress CTRL+C to quit[0m
  * Restarting with stat
  * Debugger is active!
- * Debugger PIN: 141-951-894
-127.0.0.1 - - [22/Jun/2026 10:41:31] "HEAD / HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:06] "GET / HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:06] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-100.115.92.25 - - [22/Jun/2026 10:42:06] "GET /static/css/style.css HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:06] "GET /static/js/main.js HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:07] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-100.115.92.25 - - [22/Jun/2026 10:42:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-100.115.92.25 - - [22/Jun/2026 10:42:32] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-100.115.92.25 - - [22/Jun/2026 10:42:58] "POST /api/login HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:58] "GET /api/receptionist/patients HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:58] "GET /static/uploads/patients/patient_20260608_194514.jpg HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:58] "GET /static/uploads/patients/patient_20260611_115735.jpg HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:58] "GET /static/uploads/patients/patient_20260608_102530.jpg HTTP/1.1" 200 -
-100.115.92.25 - - [22/Jun/2026 10:42:58] "GET /static/uploads/patients/patient_20260604_110107.jpg HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:45:44] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:45:44] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:45:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:45:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:45:45] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:45:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:46:00] "POST /api/scan_face HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:46:00] "[36mGET /static/uploads/patients/patient_20260604_110107.jpg HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:46:13] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:46:13] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:46:13] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:46:13] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:46:13] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:46:39] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
- * Detected change in '/home/kaurloveneet617/pythonProgram/Hospital assist/app.py', reloading
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 141-951-894
-127.0.0.1 - - [22/Jun/2026 10:50:35] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:50:35] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:50:36] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:50:36] "GET /static/js/main.js HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:50:36] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:50:39] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:52:37] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:52:37] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:52:37] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:52:37] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:52:38] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:52:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:52:39] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:53:46] "POST /api/login HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:53:47] "GET /api/receptionist/patients HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:53:47] "[36mGET /static/uploads/patients/patient_20260608_194514.jpg HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:53:47] "[36mGET /static/uploads/patients/patient_20260611_115735.jpg HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:53:47] "[36mGET /static/uploads/patients/patient_20260608_102530.jpg HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:53:47] "[36mGET /static/uploads/patients/patient_20260604_110107.jpg HTTP/1.1[0m" 304 -
-127.0.0.1 - - [22/Jun/2026 10:54:03] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:54:12] "GET /api/search_patient?query=5 HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:54:54] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:55:04] "POST /api/scan_face HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:55:20] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [22/Jun/2026 10:57:06] "POST /api/book_appointment HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:58:06] "POST /api/login HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:58:07] "GET /api/receptionist/patients HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:58:07] "GET /static/uploads/patients/patient_20260622_105704.jpg HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:58:49] "GET /api/receptionist/appointments HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:58:58] "POST /api/receptionist/appointment/checkin HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:58:58] "GET /api/receptionist/appointments HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 10:59:31] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
-127.0.0.1 - - [22/Jun/2026 10:59:32] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
-127.0.0.1 - - [22/Jun/2026 11:00:03] "POST /api/login HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 11:00:03] "GET /api/doctor/patients?doctor_name=Dr.%20Amit%20Roy HTTP/1.1" 200 -
-127.0.0.1 - - [22/Jun/2026 11:00:03] "[31m[1mGET /api/receptionist/appointments HTTP/1.1[0m" 403 -
+ * Debugger PIN: 383-056-870
+127.0.0.1 - - [24/Jun/2026 20:11:56] "HEAD / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Jun/2026 20:14:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Jun/2026 20:14:21] "[33mGET /static/placeholder.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [24/Jun/2026 20:14:21] "GET /static/css/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [24/Jun/2026 20:14:23] "GET /static/js/main.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Jun/2026 20:14:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+127.0.0.1 - - [24/Jun/2026 20:14:30] "GET / HTTP/1.1" 200 -

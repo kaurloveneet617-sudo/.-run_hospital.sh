@@ -2332,6 +2332,151 @@ if (btnBookingCapturePhoto) {
     });
 }
 
+const btnBookingUploadTrigger = document.getElementById('btn-booking-upload-trigger');
+const bookingPhotoUpload = document.getElementById('booking-photo-upload');
+
+if (btnBookingUploadTrigger && bookingPhotoUpload) {
+    btnBookingUploadTrigger.addEventListener('click', () => {
+        bookingPhotoUpload.click();
+    });
+    
+    bookingPhotoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            bookingPhotoBase64 = event.target.result;
+            bookingPhotoPreview.src = bookingPhotoBase64;
+            
+            stopBookingWebcam();
+            if (bookingWebcam) bookingWebcam.style.display = 'none';
+            if (bookingPhotoPreview) bookingPhotoPreview.style.display = 'block';
+            if (bookingCameraPlaceholderText) bookingCameraPlaceholderText.style.display = 'none';
+            
+            validateNewPatientStep1();
+            showToast('Face photo uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+const btnBookingUploadTrigger = document.getElementById('btn-booking-upload-trigger');
+const bookingPhotoUpload = document.getElementById('booking-photo-upload');
+
+if (btnBookingUploadTrigger && bookingPhotoUpload) {
+    btnBookingUploadTrigger.addEventListener('click', () => {
+        bookingPhotoUpload.click();
+    });
+    
+    bookingPhotoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            bookingPhotoBase64 = event.target.result;
+            bookingPhotoPreview.src = bookingPhotoBase64;
+            
+            stopBookingWebcam();
+            if (bookingWebcam) bookingWebcam.style.display = 'none';
+            if (bookingPhotoPreview) bookingPhotoPreview.style.display = 'block';
+            if (bookingCameraPlaceholderText) bookingCameraPlaceholderText.style.display = 'none';
+            
+            validateNewPatientStep1();
+            showToast('Face photo uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+const btnBookingUploadTrigger = document.getElementById('btn-booking-upload-trigger');
+const bookingPhotoUpload = document.getElementById('booking-photo-upload');
+
+if (btnBookingUploadTrigger && bookingPhotoUpload) {
+    btnBookingUploadTrigger.addEventListener('click', () => {
+        bookingPhotoUpload.click();
+    });
+    
+    bookingPhotoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            bookingPhotoBase64 = event.target.result;
+            bookingPhotoPreview.src = bookingPhotoBase64;
+            
+            stopBookingWebcam();
+            if (bookingWebcam) bookingWebcam.style.display = 'none';
+            if (bookingPhotoPreview) bookingPhotoPreview.style.display = 'block';
+            if (bookingCameraPlaceholderText) bookingCameraPlaceholderText.style.display = 'none';
+            
+            validateNewPatientStep1();
+            showToast('Face photo uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+const btnBookingUploadTrigger = document.getElementById('btn-booking-upload-trigger');
+const bookingPhotoUpload = document.getElementById('booking-photo-upload');
+
+if (btnBookingUploadTrigger && bookingPhotoUpload) {
+    btnBookingUploadTrigger.addEventListener('click', () => {
+        bookingPhotoUpload.click();
+    });
+    
+    bookingPhotoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            bookingPhotoBase64 = event.target.result;
+            bookingPhotoPreview.src = bookingPhotoBase64;
+            
+            stopBookingWebcam();
+            if (bookingWebcam) bookingWebcam.style.display = 'none';
+            if (bookingPhotoPreview) bookingPhotoPreview.style.display = 'block';
+            if (bookingCameraPlaceholderText) bookingCameraPlaceholderText.style.display = 'none';
+            
+            validateNewPatientStep1();
+            showToast('Face photo uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+const btnBookingUploadTrigger = document.getElementById('btn-booking-upload-trigger');
+const bookingPhotoUpload = document.getElementById('booking-photo-upload');
+
+if (btnBookingUploadTrigger && bookingPhotoUpload) {
+    btnBookingUploadTrigger.addEventListener('click', () => {
+        bookingPhotoUpload.click();
+    });
+    
+    bookingPhotoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            bookingPhotoBase64 = event.target.result;
+            bookingPhotoPreview.src = bookingPhotoBase64;
+            
+            stopBookingWebcam();
+            if (bookingWebcam) bookingWebcam.style.display = 'none';
+            if (bookingPhotoPreview) bookingPhotoPreview.style.display = 'block';
+            if (bookingCameraPlaceholderText) bookingCameraPlaceholderText.style.display = 'none';
+            
+            validateNewPatientStep1();
+            showToast('Face photo uploaded successfully!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
 // New Patient field validators
 const bookingNewName = document.getElementById('booking-new-name');
 const bookingNewAge = document.getElementById('booking-new-age');
