@@ -1,14 +1,4 @@
-FROM python:3.11-slim
-
-# Install system dependencies needed for dlib and face_recognition compilation
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    libatlas-base-dev \
-    libjpeg-dev \
-    liblapack-dev \
-    pkg-config \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+FROM python:3.11
 
 WORKDIR /app
 
