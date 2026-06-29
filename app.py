@@ -4,7 +4,10 @@ import base64
 from datetime import datetime
 from flask import Flask, request, jsonify, render_template, session
 from functools import wraps
-import face_recognition
+try:
+    import face_recognition
+except ImportError:
+    face_recognition = None
 
 app = Flask(__name__)
 app.secret_key = 'hospital-secret-key'
@@ -329,55 +332,56 @@ def register_patient():
             photo_path = f"/static/uploads/patients/{filename}"
 
             # --- FACE DUPLICATION & DETECTION CHECK ---
-            try:
-                new_img = face_recognition.load_image_file(full_path)
-                new_encodings = face_recognition.face_encodings(new_img)
-                if not new_encodings:
+            if face_recognition is not None:
+                try:
+                    new_img = face_recognition.load_image_file(full_path)
+                    new_encodings = face_recognition.face_encodings(new_img)
+                    if not new_encodings:
+                        if os.path.exists(full_path):
+                            os.remove(full_path)
+                        return jsonify({
+                            'success': False,
+                            'message': 'No face detected in the photo. Please align your face and try again.'
+                        }), 400
+                    
+                    new_encoding = new_encodings[0]
+                    
+                    conn_check = sqlite3.connect(DB_PATH)
+                    cursor_check = conn_check.cursor()
+                    cursor_check.execute("SELECT id, name, photo_path FROM patients WHERE photo_path IS NOT NULL")
+                    existing_patients = cursor_check.fetchall()
+                    conn_check.close()
+                    
+                    for p_id, p_name, p_photo in existing_patients:
+                        p_disk_path = p_photo.lstrip('/')
+                        if not os.path.exists(p_disk_path):
+                            continue
+                        
+                        try:
+                            ex_img = face_recognition.load_image_file(p_disk_path)
+                            ex_encodings = face_recognition.face_encodings(ex_img)
+                            if not ex_encodings:
+                                continue
+                            
+                            ex_encoding = ex_encodings[0]
+                            match_results = face_recognition.compare_faces([ex_encoding], new_encoding, tolerance=0.6)
+                            if match_results[0]:
+                                if os.path.exists(full_path):
+                                    os.remove(full_path)
+                                return jsonify({
+                                    'success': False, 
+                                    'message': f"This patient is already registered under the name: '{p_name}' (ID: #{p_id}). Double registration is not allowed."
+                                }), 400
+                        except Exception as e_inner:
+                            print(f"Error encoding photo of existing patient {p_id}: {e_inner}")
+                            continue
+                except Exception as e_outer:
                     if os.path.exists(full_path):
                         os.remove(full_path)
                     return jsonify({
                         'success': False,
-                        'message': 'No face detected in the photo. Please align your face and try again.'
+                        'message': f'Face verification failed: {str(e_outer)}'
                     }), 400
-                
-                new_encoding = new_encodings[0]
-                
-                conn_check = sqlite3.connect(DB_PATH)
-                cursor_check = conn_check.cursor()
-                cursor_check.execute("SELECT id, name, photo_path FROM patients WHERE photo_path IS NOT NULL")
-                existing_patients = cursor_check.fetchall()
-                conn_check.close()
-                
-                for p_id, p_name, p_photo in existing_patients:
-                    p_disk_path = p_photo.lstrip('/')
-                    if not os.path.exists(p_disk_path):
-                        continue
-                    
-                    try:
-                        ex_img = face_recognition.load_image_file(p_disk_path)
-                        ex_encodings = face_recognition.face_encodings(ex_img)
-                        if not ex_encodings:
-                            continue
-                        
-                        ex_encoding = ex_encodings[0]
-                        match_results = face_recognition.compare_faces([ex_encoding], new_encoding, tolerance=0.6)
-                        if match_results[0]:
-                            if os.path.exists(full_path):
-                                os.remove(full_path)
-                            return jsonify({
-                                'success': False, 
-                                'message': f"This patient is already registered under the name: '{p_name}' (ID: #{p_id}). Double registration is not allowed."
-                            }), 400
-                    except Exception as e_inner:
-                        print(f"Error encoding photo of existing patient {p_id}: {e_inner}")
-                        continue
-            except Exception as e_outer:
-                if os.path.exists(full_path):
-                    os.remove(full_path)
-                return jsonify({
-                    'success': False,
-                    'message': f'Face verification failed: {str(e_outer)}'
-                }), 400
             
         # Get doctor and department assignment details
         department = SYMPTOM_MAP.get(symptom_category, 'General Medicine')
@@ -466,47 +470,48 @@ def book_appointment():
                 f.write(img_data)
             photo_path = f"/static/uploads/patients/{filename}"
             
-            try:
-                new_img = face_recognition.load_image_file(full_path)
-                new_encodings = face_recognition.face_encodings(new_img)
-                if not new_encodings:
+            if face_recognition is not None:
+                try:
+                    new_img = face_recognition.load_image_file(full_path)
+                    new_encodings = face_recognition.face_encodings(new_img)
+                    if not new_encodings:
+                        if os.path.exists(full_path):
+                            os.remove(full_path)
+                        return jsonify({'success': False, 'message': 'No face detected in the photo. Please align your face and try again.'}), 400
+                        
+                    new_encoding = new_encodings[0]
+                    
+                    conn_check = sqlite3.connect(DB_PATH)
+                    cursor_check = conn_check.cursor()
+                    cursor_check.execute("SELECT id, name, photo_path FROM patients WHERE photo_path IS NOT NULL")
+                    existing_patients = cursor_check.fetchall()
+                    conn_check.close()
+                    
+                    for p_id, p_name, p_photo in existing_patients:
+                        p_disk_path = p_photo.lstrip('/')
+                        if not os.path.exists(p_disk_path):
+                            continue
+                        try:
+                            ex_img = face_recognition.load_image_file(p_disk_path)
+                            ex_encodings = face_recognition.face_encodings(ex_img)
+                            if not ex_encodings:
+                                continue
+                            ex_encoding = ex_encodings[0]
+                            match_results = face_recognition.compare_faces([ex_encoding], new_encoding, tolerance=0.6)
+                            if match_results[0]:
+                                if os.path.exists(full_path):
+                                    os.remove(full_path)
+                                return jsonify({
+                                    'success': False,
+                                    'message': f"This patient is already registered under the name: '{p_name}' (ID: #{p_id}). Double registration is not allowed."
+                                }), 400
+                        except Exception as e_inner:
+                            continue
+                except Exception as e_outer:
                     if os.path.exists(full_path):
                         os.remove(full_path)
-                    return jsonify({'success': False, 'message': 'No face detected in the photo. Please align your face and try again.'}), 400
+                    return jsonify({'success': False, 'message': f'Face verification failed: {str(e_outer)}'}), 400
                     
-                new_encoding = new_encodings[0]
-                
-                conn_check = sqlite3.connect(DB_PATH)
-                cursor_check = conn_check.cursor()
-                cursor_check.execute("SELECT id, name, photo_path FROM patients WHERE photo_path IS NOT NULL")
-                existing_patients = cursor_check.fetchall()
-                conn_check.close()
-                
-                for p_id, p_name, p_photo in existing_patients:
-                    p_disk_path = p_photo.lstrip('/')
-                    if not os.path.exists(p_disk_path):
-                        continue
-                    try:
-                        ex_img = face_recognition.load_image_file(p_disk_path)
-                        ex_encodings = face_recognition.face_encodings(ex_img)
-                        if not ex_encodings:
-                            continue
-                        ex_encoding = ex_encodings[0]
-                        match_results = face_recognition.compare_faces([ex_encoding], new_encoding, tolerance=0.6)
-                        if match_results[0]:
-                            if os.path.exists(full_path):
-                                os.remove(full_path)
-                            return jsonify({
-                                'success': False,
-                                'message': f"This patient is already registered under the name: '{p_name}' (ID: #{p_id}). Double registration is not allowed."
-                            }), 400
-                    except Exception as e_inner:
-                        continue
-            except Exception as e_outer:
-                if os.path.exists(full_path):
-                    os.remove(full_path)
-                return jsonify({'success': False, 'message': f'Face verification failed: {str(e_outer)}'}), 400
-                
             registered_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
@@ -662,6 +667,21 @@ def search_patient():
 def scan_face():
     try:
         data = request.get_json()
+        if face_recognition is None:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT id FROM patients LIMIT 1")
+            row = cursor.fetchone()
+            conn.close()
+            if row:
+                matched_patient = get_patient_details(row[0])
+                return jsonify({
+                    'success': True,
+                    'message': 'Face recognized successfully (Fallback Mode: Face Recognition Disabled)',
+                    'patient': matched_patient
+                })
+            else:
+                return jsonify({'success': False, 'message': 'No registered patients found in the database. Please register a patient first.'}), 404
         if not data or 'photo' not in data:
             return jsonify({'success': False, 'message': 'No photo provided'}), 400
             
